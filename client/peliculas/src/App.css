@@ -89,16 +89,50 @@
   cursor: pointer;
 }
 
+.movies-list {
+  margin-bottom: 20px;
+}
+
+.movies-list ul {
+  list-style-type: none;
+  padding: 0;
+}
+
+.movies-list li {
+  margin: 5px 0;
+}
+
 .movies-list a {
   text-decoration: none;
-  color: #007bff; /* Color azul para los enlaces no visitados */
+  color: #007bff;
 }
 
 .movies-list a:hover {
   text-decoration: underline;
-  color: #0056b3; /* Color azul oscuro cuando se pasa el ratón */
 }
 
 .movies-list a:visited {
-  color: #c2c9d0; /* Color gris claro para los enlaces visitados */
+  color: #6c757d;
+}
+
+/* Estilos para la pantalla de carga */
+.loading-screen {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: rgba(0, 0, 0, 0.5);
+  color: white;
+  font-size: 24px;
+  z-index: 1000;
+}
+
+/* Estilo para deshabilitar el botón de enviar */
+input:disabled, button:disabled {
+  background-color: #ccc;
+  cursor: not-allowed;
 }

@@ -3,25 +3,14 @@ const router = new Router();
 const axios = require('axios');
 const { RecursiveCharacterTextSplitter } = require("langchain/text_splitter");
 
-const movies_data = [
-  { name: "Matrix Reloaded, The", url: "https://imsdb.com/scripts/Matrix-Reloaded,-The.html" },
-  { name: "Puss in Boots: The Last Wish", url: "https://imsdb.com/scripts/Puss-in-Boots-The-Last-Wish.html" },
-  { name: "Thor: Ragnarok", url: "https://imsdb.com/scripts/Thor-Ragnarok.html" },
-  { name: "TRON", url: "https://imsdb.com/scripts/TRON.html" },
-  { name: "War Horse", url: "https://imsdb.com/scripts/War-Horse.html" },
-  { name: "28 Days Later", url: "https://imsdb.com/scripts/28-Days-Later.html" },
-  { name: "I, Robot", url: "https://imsdb.com/scripts/I,-Robot.html" },
-  { name: "Guardians of the Galaxy Vol. 2", url: "https://imsdb.com/scripts/Guardians-of-the-Galaxy-Vol-2.html" },
-  { name: "The Green Mile", url: "https://imsdb.com/scripts/Green-Mile,-The.html" },
-  { name: "American History X", url: "https://imsdb.com/scripts/American-History-X.html" },
-];
+
 
 // const guiones = require('./routes/guiones');
 
 // router.get('/', async ctx => {
 //   ctx.body = 'Ruta principal de la API';
 // });
-async function getAndSaveData(url) {
+async function getFilmScript(url) {
   try {
     const pageResponse = await axios.get(url);
     const htmlContent = pageResponse.data

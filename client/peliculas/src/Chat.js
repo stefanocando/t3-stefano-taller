@@ -1,12 +1,11 @@
-// src/Chat.js
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 
-const URL = 'http://localhost:5000/messages';
 
 function Chat() {
   const [messages, setMessages] = useState([]);
   const [input, setInput] = useState('');
+  const [loading, setLoading] = useState(false); // Estado para manejar el loading
 
   const movies_data = [
     { name: "Matrix Reloaded, The", url: "https://imsdb.com/scripts/Matrix-Reloaded,-The.html" },
@@ -21,53 +20,64 @@ function Chat() {
     { name: "American History X", url: "https://imsdb.com/scripts/American-History-X.html" },
   ];
 
+
   const handleSend = () => {
     if (input.trim()) {
-      const newMessage = { text: input, sender: 'user' };
+      setLoading(true);
+      const newMessage = { message: input };
       
-      axios.post(URL, newMessage)
+      axios.post('http://localhost:5000/query', newMessage)
         .then((response) => {
           setMessages([...messages, response.data]);
           setInput('');
+          setLoading(false);
         })
         .catch((error) => {
           console.error('Error sending message:', error);
+          setLoading(false);
         });
     }
   };
 
   return (
     <div>
-        <div className="movies-list">
-            <h3>Movies Scripts:</h3>
-            <ul>
-            {movies_data.map((movie, index) => (
-                <li key={index}>
-                <a href={movie.url} target="_blank" rel="noopener noreferrer">
-                    {movie.name}
-                </a>
-                </li>
-            ))}
-            </ul>
+      <div className="movies-list">
+        <h3>Movies Scripts:</h3>
+        <ul>
+          {movies_data.map((movie, index) => (
+            <li key={index}>
+              <a href={movie.url} target="_blank" rel="noopener noreferrer">
+                {movie.name}
+              </a>
+            </li>
+          ))}
+        </ul>
+      </div>
+
+      {loading && (
+        <div className="loading-screen">
+          <p>Loading...</p>
         </div>
-        <div className="chat-container">
+      )}
+
+      <div className="chat-container">
         <div className="messages">
-            {messages.map((message, index) => (
+          {messages.map((message, index) => (
             <div key={index} className={message.sender}>
-                {message.text}
+              {message.text}
             </div>
-            ))}
+          ))}
         </div>
         <div className="input-container">
-            <input
+          <input
             type="text"
             value={input}
             onChange={(e) => setInput(e.target.value)}
             placeholder="Type a message..."
-            />
-            <button onClick={handleSend}>Send</button>
+          />
+          <button onClick={handleSend} disabled={loading}>Send</button>
         </div>
-        </div>
+      </div>
     </div>
   );
 }
