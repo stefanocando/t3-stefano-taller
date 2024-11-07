@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 
-const URL = 'http://localhost:5000/query';
+const URL = 'https://tarea-3-stefanocando-production.up.railway.app/query';
 
 function Chat() {
   const [messages, setMessages] = useState([]);
