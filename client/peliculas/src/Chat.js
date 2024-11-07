@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 
+const URL = 'http://localhost:5000/query';
 
 function Chat() {
   const [messages, setMessages] = useState([]);
@@ -26,7 +27,7 @@ function Chat() {
       setLoading(true);
       const newMessage = { message: input };
       
-      axios.post('http://localhost:5000/query', newMessage)
+      axios.post(URL, newMessage)
         .then((response) => {
           setMessages([...messages, response.data]);
           setInput('');
